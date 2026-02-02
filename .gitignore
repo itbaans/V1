@@ -1,0 +1,31 @@
+# Ignore everything by default
+/*
+
+# Include essential folders
+!/scripts/
+!/data/
+!/docs/
+
+# Within data, only include formatted and images
+/data/*
+!/data/formatted/
+!/data/images/
+
+# Include requirements
+!requirements_training.txt
+!.gitignore
+
+# Exclude any generated files
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+*.log
+output/
+*.egg-info/
+
+# Exclude keys (security)
+*.pem
+id_rsa*
+id_ed25519*
+key.txt*
