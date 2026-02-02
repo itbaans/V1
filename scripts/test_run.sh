@@ -10,7 +10,7 @@ OUTPUT_DIR="output/qwen2vl_test_run"
 PROJECT_NAME="gastro-vqa-test"
 
 # HuggingFace config (set your values)
-HF_REPO="YOUR_HF_USERNAME/qwen2vl-gastro-vqa"  # Change this!
+HF_REPO="peeache/qwen2vl-gastro-vqa-test"  # Change this!
 # Run: huggingface-cli login first
 
 # Dataset paths
