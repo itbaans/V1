@@ -42,8 +42,8 @@ NPROC_PER_NODE=4 \
 swift sft \
     --model ${MODEL_NAME} \
     --dataset ${SIMPLE_VQA} ${GROUNDING_VQA} ${COMPARISON} \
-    --train_type lora \
-    --dtype bfloat16 \
+    --tuner_type lora \
+    --torch_dtype bfloat16 \
     --num_train_epochs ${NUM_EPOCHS} \
     --per_device_train_batch_size ${BATCH_SIZE} \
     --learning_rate ${LEARNING_RATE} \
