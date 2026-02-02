@@ -33,8 +33,8 @@ CUDA_VISIBLE_DEVICES=0 \
 swift sft \
     --model ${MODEL_NAME} \
     --dataset ${SIMPLE_VQA} \
-    --tuner_type lora \
-    --torch_dtype bfloat16 \
+    --train_type lora \
+    --dtype bfloat16 \
     --max_steps ${MAX_STEPS} \
     --per_device_train_batch_size ${BATCH_SIZE} \
     --learning_rate 1e-4 \
