@@ -11,6 +11,8 @@ SIMPLE_VQA="data/formatted/simple_vqa_train.json"
 GROUNDING_VQA="data/formatted/grounding_vqa.json"
 COMPARISON="data/formatted/comparison.json"
 
+PROJECT_NAME="gastro-vqa-temp_train"
+
 # Quick test - 5 steps
 MAX_STEPS=5
 BATCH_SIZE=1
@@ -27,8 +29,8 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 \
 NPROC_PER_NODE=4 \
 swift sft \
     --model ${MODEL_NAME} \
-    --dataset ${SIMPLE_VQA} ${GROUNDING_VQA} ${COMPARISON} \
-    --tuner_type lora \
+    --dataset ${SIMPLE_VQA} \
+    --train_type lora \
     --torch_dtype bfloat16 \
     --max_steps ${MAX_STEPS} \
     --per_device_train_batch_size ${BATCH_SIZE} \
@@ -37,17 +39,14 @@ swift sft \
     --lora_alpha 32 \
     --target_modules all-linear \
     --gradient_accumulation_steps ${GRADIENT_ACCUMULATION} \
-    --save_steps 5 \
-    --logging_steps 1 \
-    --max_length ${MAX_LENGTH} \
+    --save_steps 25 \
+    --logging_steps 5 \
+    --max_length 4096 \
     --output_dir ${OUTPUT_DIR} \
-    --warmup_ratio 0.05 \
-    --dataloader_num_workers 4 \
     --gradient_checkpointing true \
-    --deepspeed zero2 \
     --use_hf true \
     --report_to wandb \
-    --run_name "gastro-vqa-temp"
+    --run_name ${PROJECT_NAME}
 
 echo "=============================================="
 echo "Temp run complete!"
