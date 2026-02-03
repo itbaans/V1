@@ -52,7 +52,7 @@ echo "=============================================="
 echo "Temp run complete!"
 echo "=============================================="
 
-HF_REPO="peeache/qwen2vl-gastro-vqa"  # Change for production!
+HF_REPO="peeache/qwen2vl-gastro-vqa-wsmt"  # Change for production!
 
 # Find the latest checkpoint automatically
 # Gets the most recent v*-* folder, then finds the highest checkpoint
