@@ -29,7 +29,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 \
 NPROC_PER_NODE=4 \
 swift sft \
     --model ${MODEL_NAME} \
-    --dataset ${SIMPLE_VQA} ${GROUNDING_VQA} ${COMPARISON} \
+    --dataset ${SIMPLE_VQA}\
     --train_type lora \
     --torch_dtype bfloat16 \
     --num_train_epochs ${NUM_EPOCHS} \
@@ -52,7 +52,7 @@ echo "=============================================="
 echo "Temp run complete!"
 echo "=============================================="
 
-HF_REPO="peeache/qwen2vl-gastro-vqa-wsmt"  # Change for production!
+HF_REPO="peeache/qwen2vl-gastro-vqa-basic"  # Change for production!
 
 # Find the latest checkpoint automatically
 # Gets the most recent v*-* folder, then finds the highest checkpoint
