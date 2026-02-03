@@ -30,7 +30,8 @@ swift export \
     --adapters ${LATEST_CKPT} \
     --push_to_hub true \
     --hub_model_id ${HF_REPO} \
-    --use_hf true
+    --use_hf true \
+    --merge_lora true
 
 echo "=============================================="
 echo "Pushed to: https://huggingface.co/${HF_REPO}"
