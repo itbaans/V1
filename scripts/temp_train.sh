@@ -29,7 +29,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 \
 NPROC_PER_NODE=4 \
 swift sft \
     --model ${MODEL_NAME} \
-    --dataset ${SIMPLE_VQA} \
+    --dataset ${SIMPLE_VQA} ${GROUNDING_VQA} ${COMPARISON} \
     --train_type lora \
     --torch_dtype bfloat16 \
     --max_steps ${MAX_STEPS} \
@@ -52,7 +52,7 @@ echo "=============================================="
 echo "Temp run complete!"
 echo "=============================================="
 
-HF_REPO="peeache/qwen2vl-gastro-vqa"  # Change for production!
+HF_REPO="peeache/qwen2vl-gastro-vqa-temp"  # Change for production!
 
 # Find the latest checkpoint automatically
 # Gets the most recent v*-* folder, then finds the highest checkpoint
@@ -80,7 +80,8 @@ swift export \
     --adapters ${LATEST_CKPT} \
     --push_to_hub true \
     --hub_model_id ${HF_REPO} \
-    --use_hf true
+    --use_hf true \
+    --merge_lora true
 
 echo "=============================================="
 echo "Pushed to: https://huggingface.co/${HF_REPO}"
