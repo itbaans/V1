@@ -15,11 +15,11 @@ GROUNDING_VQA="data/formatted/grounding_vqa.json"
 COMPARISON="data/formatted/comparison.json"
 
 # Training hyperparameters (optimized for 4x 24GB GPUs)
-BATCH_SIZE=2                    # Per GPU batch size
-GRADIENT_ACCUMULATION=8         # Effective batch = 4 * 2 * 8 = 64
+BATCH_SIZE=1                   # Per GPU batch size
+GRADIENT_ACCUMULATION=4         # Effective batch = 4 * 2 * 8 = 64
 LEARNING_RATE=1e-4
-NUM_EPOCHS=3
-MAX_LENGTH=2048
+NUM_EPOCHS=1
+MAX_LENGTH=4096
 
 # LoRA config
 LORA_RANK=8
@@ -67,4 +67,38 @@ swift sft \
 echo "=============================================="
 echo "Training Complete!"
 echo "Checkpoints saved to: ${OUTPUT_DIR}"
+echo "=============================================="
+
+HF_REPO="peeache/qwen2vl-gastro-vqa"  # Change for production!
+
+# Find the latest checkpoint automatically
+# Gets the most recent v*-* folder, then finds the highest checkpoint
+LATEST_RUN=$(ls -dt ${OUTPUT_DIR}/v*-* 2>/dev/null | head -1)
+
+if [ -z "$LATEST_RUN" ]; then
+    echo "Error: No training runs found in ${OUTPUT_DIR}"
+    exit 1
+fi
+
+# Find the highest checkpoint number in that run
+LATEST_CKPT=$(ls -d ${LATEST_RUN}/checkpoint-* 2>/dev/null | sort -t- -k2 -n | tail -1)
+
+if [ -z "$LATEST_CKPT" ]; then
+    echo "Error: No checkpoints found in ${LATEST_RUN}"
+    exit 1
+fi
+
+echo "=============================================="
+echo "Pushing to HuggingFace: ${HF_REPO}"
+echo "Checkpoint: ${LATEST_CKPT}"
+echo "=============================================="
+
+swift export \
+    --adapters ${LATEST_CKPT} \
+    --push_to_hub true \
+    --hub_model_id ${HF_REPO} \
+    --use_hf true
+
+echo "=============================================="
+echo "Pushed to: https://huggingface.co/${HF_REPO}"
 echo "=============================================="
