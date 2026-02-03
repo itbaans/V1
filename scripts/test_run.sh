@@ -29,7 +29,8 @@ echo "Max Steps: ${MAX_STEPS}"
 echo "=============================================="
 
 # Single GPU test run
-CUDA_VISIBLE_DEVICES=0 \
+CUDA_VISIBLE_DEVICES=0,1,2,3 \
+NPROC_PER_NODE=4 \
 swift sft \
     --model ${MODEL_NAME} \
     --dataset ${SIMPLE_VQA} \
@@ -44,7 +45,7 @@ swift sft \
     --gradient_accumulation_steps ${GRADIENT_ACCUMULATION} \
     --save_steps 25 \
     --logging_steps 5 \
-    --max_length 2048 \
+    --max_length 4096 \
     --output_dir ${OUTPUT_DIR} \
     --gradient_checkpointing true \
     --use_hf true \
