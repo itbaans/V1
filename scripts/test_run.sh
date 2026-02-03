@@ -60,8 +60,7 @@ echo "Pushing to HuggingFace: ${HF_REPO}"
 swift export \
     --adapters ${OUTPUT_DIR}/checkpoint-${MAX_STEPS} \
     --push_to_hub true \
-    --hub_model_id ${HF_REPO} \
-    --use_hf true
+    --hub_model_id ${HF_REPO}
 
 echo "=============================================="
 echo "Pushed to: https://huggingface.co/${HF_REPO}"
