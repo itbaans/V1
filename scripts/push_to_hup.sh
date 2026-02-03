@@ -1,8 +1,8 @@
 #!/bin/bash
 # Push trained model to HuggingFace
 
-OUTPUT_DIR="output/qwen2vl_gastro_vqa"
-HF_REPO="peeache/qwen2vl-gastro-vqa"  # Change for production!
+OUTPUT_DIR="output/qwen2vl_temp"
+HF_REPO="peeache/qwen2vl-gastro-vqa-temp"  # Change for production!
 
 # Find the latest checkpoint automatically
 # Gets the most recent v*-* folder, then finds the highest checkpoint
